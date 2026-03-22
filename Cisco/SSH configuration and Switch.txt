@@ -1,0 +1,43 @@
+Secure use EXEC mode:
+Router(config)# line console 0
+Router(config-line)# password password
+Router(config-line)# login
+
+Secure remote telnet / SSH access:
+Router(config-line)# line vty 0 4
+Router(config-line)# password password
+Router(config-line)# login
+Router(config-line)# transport input {ssh | telnet | none | all}
+
+Provide Legal Notifcation:
+Router(config)# banner motd delimiter message delimiter
+
+Save the configuration:
+Router(config)# copy running-config startup-config
+
+By default, many Cisco switches support up to 16 vty lines that are numbered 0 to 15. The number of vty lines supported on a Cisco router varies with the type of router and the IOS version. However, five is the most common number of vty lines configured on a router. These lines are numbered 0 to 4 by default, though additional lines can be configured. A password needs to be set for all available vty lines. The same password can be set for all connections.
+
+To verify that the passwords are set correctly, use the show running-config command. These passwords are stored in the running-configuration in plaintext. It is possible to set encryption on all passwords stored within the router so that they are not easily read by unauthorized individuals. The global configuration command service password-encryption ensures that all passwords are encrypted.
+
+With remote access secured on the switch, you can now configure SSH.
+
+
+S1# show ip ssh
+SSH Disabled - version 1.99
+%Please create RSA keys (of at least 768 bits size) to enable SSH v2.
+Authentication timeout: 120 secs; Authentication retries: 3
+S1# configure terminal
+S1(config)# ip domain-name cisco.com
+S1(config)# crypto key generate rsa
+The name for the keys will be: S1.cisco.com
+...
+How many bits in the modulus [512]: 1024
+...
+S1(config)# username admin secret ccna
+S1(config-line)# line vty 0 15
+S1(config-line)# transport input ssh
+S1(config-line)# login local
+S1(config-line)# exit
+S1(config)# ip ssh version 2
+S1(config)# exit
+S1#
