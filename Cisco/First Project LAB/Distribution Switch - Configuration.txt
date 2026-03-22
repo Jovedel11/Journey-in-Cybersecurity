@@ -1,0 +1,71 @@
+Distribution Switch (Layer 3 Switch / Core Switch) - Configuration
+en
+conf t
+line console 0
+password JOVEDEL
+login
+exit
+line vty 0 4
+password JOVEDEL
+login
+exit
+enable secret JOVEDEL
+service password-encryption
+exit
+exit
+copy running-config startup-config
+wr
+exit
+en
+conf t
+hostname SW-D
+vlan 10
+name Users
+vlan 20
+name ADMIN@IT
+vlan 30
+name Servers
+interface vlan 10
+ip address 10.10.10.1 255.255.255.0
+sh
+no sh
+interface vlan 20
+ip address 10.10.20.1 255.255.255.0
+sh
+no sh
+interface vlan 30
+ip address 10.10.30.1 255.255.255.0
+sh
+no sh
+exit
+exit
+en
+conf t
+ip routing
+interface g1/0/2
+no switchport
+ip address 10.10.99.1 255.255.255.252
+sh
+no sh
+ip route 0.0.0.0 0.0.0.0 10.10.99.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

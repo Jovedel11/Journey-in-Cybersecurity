@@ -1,0 +1,35 @@
+NAT Router - Configuration
+en
+conf t
+line console 0
+password JOVEDEL
+login
+exit
+line vty 0 4
+password JOVEDEL
+login
+exit
+enable secret JOVEDEL
+service password-encryption
+exit
+exit
+copy running-config startup-config
+wr
+exit
+en
+conf t
+hostname NAT-Router
+interface g0/0
+ip address 10.10.99.2 255.255.255.252
+ip nat inside
+sh
+no sh
+interface g0/1
+ip address 203.0.113.1 255.255.255.252
+ip nat ouside
+sh
+no sh
+access list 1 permit 10.0.0.0 0.255.255.255
+ip nat inside source list 1 interface g0/1 overload
+ip route 0.0.0.0 0.0.0.0 203.0.113.2
+ip route 10.0.0.0 255.0.0.0 10.10.99.1

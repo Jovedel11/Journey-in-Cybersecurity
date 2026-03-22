@@ -1,0 +1,25 @@
+ISP Router - Configuration
+en
+conf t
+line console 0
+password JOVEDEL
+login
+exit
+line vty 0 4
+password JOVEDEL
+login
+exit
+enable secret JOVEDEL
+service password-encryption
+exit
+exit
+copy running-config startup-config
+wr
+exit
+en
+conf t
+hostname ISP-Router
+interface g0/0
+ip address 203.0.113.2 255.255.255.252
+sh
+no sh

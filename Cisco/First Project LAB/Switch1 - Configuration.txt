@@ -1,0 +1,40 @@
+Switch1 -Configuration
+en
+conf t
+line console 0
+password JOVEDEL
+login
+exit
+line vty 0 4
+password JOVEDEL
+login
+exit
+enable secret JOVEDEL
+service password-encryption
+exit
+exit
+copy running-config startup-config
+wr
+exit
+en
+conf t
+hostname SW1
+vlan 10
+name Users
+vlan 20
+name ADMIN@IT
+vlan 30
+name Servers
+interface range fa0/1-2
+switchport mode access
+switchport access vlan 10
+interaface range fa0/4-10
+switchport mode accesss
+switchport access vlan 10
+interface fa0/3
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30
+
+
+
+
