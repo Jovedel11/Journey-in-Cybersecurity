@@ -27,10 +27,12 @@ vlan 30
 name Servers
 interface vlan 10
 ip address 10.10.10.1 255.255.255.0
+ip helper-address
 sh
 no sh
 interface vlan 20
 ip address 10.10.20.1 255.255.255.0
+ip helper-address
 sh
 no sh
 interface vlan 30
