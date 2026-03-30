@@ -1,0 +1,33 @@
+en
+conf t
+hostname SWA-2 (Swtich Access 2)
+vlan 20
+name IT
+exit
+interface range  fa0/1-5
+switchport mode access
+swtichport acess vlan 10
+spanning-tree portfast (host ports go forwarding quickly)
+spanning-tree bpduguard enable (if someone plugs a swtich and sends BDPU(Bridge Protocol Data Unit), ports shutdown (loop protection) )
+exit
+interface G0/1
+swtichport mode trunk
+switchport trunk allowed vlan 20
+exit
+interface G0/2
+switchport mode trunk
+switchport trunk allowed vlan 20
+exit
+line console 0
+password JOVEDEL
+login
+exit
+line vty 0 15
+password JOVEDEL
+login
+exit
+enable secret JOVEDEL
+service password-encryption
+end
+wr
+copy running-config startup-config
