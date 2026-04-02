@@ -6,17 +6,18 @@ name IT
 exit
 interface range  fa0/1-5
 switchport mode access
-swtichport acess vlan 10
+swtichport access vlan 10
 spanning-tree portfast (host ports go forwarding quickly)
 spanning-tree bpduguard enable (if someone plugs a swtich and sends BDPU(Bridge Protocol Data Unit), ports shutdown (loop protection) )
 exit
+spanning-tree mode rapid-pvst (for faster recovery)
 interface G0/1
 swtichport mode trunk
-switchport trunk allowed vlan 20
+switchport trunk allowed vlan 10,20,30,50
 exit
 interface G0/2
 switchport mode trunk
-switchport trunk allowed vlan 20
+switchport trunk allowed vlan 10,20,30,50
 exit
 line console 0
 password JOVEDEL

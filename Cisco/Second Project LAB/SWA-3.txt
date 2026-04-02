@@ -8,10 +8,11 @@ vlan 50
 name Server
 interface range fa0/1-2
 switchport mode access
-swtichport acess vlan 30
+swtichport access vlan 30
 spanning-tree portfast (host ports go forwarding quickly)
 spanning-tree bpduguard enable (if someone plugs a swtich and sends BDPU(Bridge Protocol Data Unit), ports shutdown (loop protection) )
 exit
+spanning-tree mode rapid-pvst (for faster recovery)
 interface fa0/3
 switchport mode access
 swtichport acess vlan 50
@@ -20,11 +21,11 @@ spanning-tree bpduguard enable
 exit
 interface G0/1
 swtichport mode trunk
-switchport trunk access allowed 30,50
+switchport trunk access allowed 10,20,30,50
 exit
 interface G0/2
 switchport mode trunk
-switchport trunk access allowed 30,50
+switchport trunk access allowed 10,20,30,50
 exit
 line console 0
 password JOVEDEL

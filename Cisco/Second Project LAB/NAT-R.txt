@@ -1,0 +1,44 @@
+en
+conf t
+hostname NAT-R
+service dhcp
+ip dhcp excluded-address 10.10.10.1 10.10.10.5
+ip dhcp excluded-address 10.10.20.1 10.10.10.5
+ip dhcp excluded-address 10.10.30.1 10.10.10.3
+ip dhcp pool HR
+network 10.10.10.0 255.255.255.240
+default-router 10.10.10.1
+dns-server 10.10.50.2
+domain-name detnserve.local
+exit
+ip dhcp pool IT
+network 10.10.20.0 255.255.255.240
+default-router 10.10.20.1
+dns-server 10.10.50.2
+domain-name dentserve.local
+exit
+ip dhcp pool Guest
+default-router 10.10.30.1
+dns-server 10.10.50.2
+domain-name dentserve.local
+end
+wr
+conf t
+interface g0/0
+ip address 10.10.253.6 255.255.255.252
+ip nat inside
+no sh
+interface g0/1
+ip address 203.0.113.1 255.255.255.252
+ip nat outside
+no sh
+access-list 1 permit 10.10.10.0 0.0.0.15
+access-list 1 permit 10.10.20.0 0.0.0.15
+access-list 1 permit 10.10.30.0 0.0.0.7
+access-list 1 permit 10.10.50.0 0.0.0.3
+ip nat inside soruce list 1 interface g0/1 overload
+ip route 10.10.10.0. 255.255.255.240 10.10.253.5
+ip route 10.10.20.0 255.255.255.240 10.10.253.5
+ip route 10.10.30.0 255.255.255.248 10.10.253.5
+ip route 10.10.50.0 255.255.255.252 10.10.253.5
+ip route 0.0.0.0 0.0.0.0 203.0.113.2

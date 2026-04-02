@@ -1,0 +1,6 @@
+en
+conf t
+hostname ISP-R
+interface g0/0
+ip address 203.0.133.2 255.255.255.252
+no sh
