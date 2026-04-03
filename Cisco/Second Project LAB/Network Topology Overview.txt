@@ -1,0 +1,49 @@
+Enterprise Company Network Overview
+
+This network topology is designed to demonstrate a structured enterprise network using a hierarchical model. It incorporates key networking concepts such as VLAN segmentation, inter-VLAN routing, switching layers (Access, Distribution, Core), security policies, and WAN connectivity.
+
+● Key Features Implemented
+- Multi-VLAN Architecture
+The network is divided into multiple VLANs based on department and purpose:
+ - VLAN 10 – HR
+ - VLAN 20 – IT
+ - VLAN 30 – Guest
+ - VLAN 50 – Internal Server
+- Subnetting
+‣ Each VLAN is assigned a properly sized subnet based on the number of required hosts to ensure efficient IP address utilization.
+- Inter-VLAN Routing (SVI)
+‣ Switch Virtual Interfaces (SVIs) are configured on the Distribution Layer to enable communication between VLANs.
+- Three-Tier Architecture
+ - Access Layer – Connects end devices (PCs, servers)
+ - Distribution Layer – Handles routing, VLAN management, and policy enforcement
+ - Core Layer – Provides fast and efficient packet forwarding with minimal configuration
+- Spanning Tree Protocol (STP)
+Implemented to prevent switching loops and ensure redundancy across trunk links between switches.
+- Trunking
+Trunk links are configured between switches to allow multiple VLANs to pass through a single link.
+
+● Routing and Traffic Flow
+- The Distribution Switch acts as the primary Layer 3 device, handling:
+ - Inter-VLAN routing
+ - Policy enforcement (ACLs)
+- The Core Switch is optimized for high-speed traffic forwarding, acting as a backbone to ensure efficient data transmission across the network.
+
+Security Implementation (ACLs)
+Access Control Lists (ACLs) are configured on the Distribution Switch to control traffic between VLANs:
+- HR VLAN (VLAN 10) is restricted from accessing the IT VLAN
+- Guest VLAN (VLAN 30):
+ - Denied access to all internal networks
+ - Allowed access to external networks (Internet)
+‣ This ensures proper network segmentation and security.
+
+● Network Services
+- DHCP (Dynamic Host Configuration Protocol)
+Configured on the router to dynamically assign IP addresses to devices in each VLAN.
+- DNS Server (Internal Server VLAN 50)
+‣ Provides internal name resolution for the network.
+
+● WAN Connectivity and NAT
+- The network connects to an ISP router for internet access.
+- NAT (Network Address Translation) is configured on the router:
+ - Translates private IP addresses into a public IP address
+ - Enables internal devices to access external networks (Internet)
